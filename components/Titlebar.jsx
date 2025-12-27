@@ -27,8 +27,8 @@ export default function Titlebar() {
       </div>
 
       <div className="flex-1 flex justify-center items-center min-w-0">
-        <div className="border border-gray-600 bg-[#1e1e1e] text-center rounded px-3 py-1 truncate text-xs md:text-sm">
-          <p className="truncate">Ashutosh Portfolio</p>
+        <div className="border border-gray-600 bg-[#1e1e1e] text-center rounded p-5 truncate text-xs md:text-sm " style={{padding:"2px 10px"}}>
+          <p className="truncate" style={{padding:"2px 10px"}}>Ashutosh Portfolio</p>
         </div>
       </div>
 

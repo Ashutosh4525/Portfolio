@@ -1,13 +1,11 @@
 import { create } from 'zustand';
+import About from '@/components/About';
 
 export const useEditorStore = create((set) => ({
   tabs: [
-    { id: 'skills', name: 'Skills', component: null, content: '' },
-    { id: 'projects', name: 'Projects', component: null, content: '' },
-    { id: 'contact', name: 'Contact', component: null, content: '' },
-    { id: 'terminal', name: 'Terminal', component: null, content: '' },
+    { id: 'about', name: 'About', component: <About /> }
   ],
-  activeTab: 'skills',
+  activeTab: 'about',
   
   openTab: (tab) => set((state) => {
     const existingTab = state.tabs.find(t => t.id === tab.id);
@@ -20,12 +18,18 @@ export const useEditorStore = create((set) => ({
     };
   }),
   
-  closeTab: (tabId) => set((state) => ({
-    tabs: state.tabs.filter(t => t.id !== tabId),
-    activeTab: state.activeTab === tabId 
-      ? state.tabs[0]?.id || 'skills'
-      : state.activeTab
-  })),
+  closeTab: (tabId) => set((state) => {
+    // Don't allow closing the About tab
+    if (tabId === 'about') return state;
+    
+    const newTabs = state.tabs.filter(t => t.id !== tabId);
+    return {
+      tabs: newTabs,
+      activeTab: state.activeTab === tabId 
+        ? newTabs.find(t => t.id !== tabId)?.id || 'about'
+        : state.activeTab
+    };
+  }),
   
   setActiveTab: (tabId) => set({ activeTab: tabId }),
 }));

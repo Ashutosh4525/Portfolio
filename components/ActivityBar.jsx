@@ -26,14 +26,14 @@ export default function ActivityBar() {
   const iconSize = isMobile ? 18 : 20;
 
   return (
-    <aside className="h-screen w-12 md:w-14 bg-[#1e1e1e] border-r border-[#3c3c3c] text-gray-400 pt-2 flex flex-col items-center justify-between py-3 md:py-4 overflow-hidden shrink-0">
+    <aside className="h-screen w-12 md:w-14 bg-[#1e1e1e] border-r border-[#3c3c3c] text-gray-400 pt-2 flex flex-col items-center justify-between py-3 md:py-4 overflow-hidden shrink-0" style={{paddingTop:"5px"}}>
       <div className="flex flex-col items-center gap-3 md:gap-6">
         <button
           onClick={() => handleSectionClick('files')}
-          className={`transition duration-200 p-2 rounded ${
+          className={`transition duration-200 w-full ${
             activeSection === 'files'
-              ? 'text-white bg-[#3c3c3c]'
-              : 'hover:text-white hover:bg-[#3c3c3c]'
+              ? 'text-white'
+              : 'hover:text-white'
           }`}
           title="Explorer"
         >
@@ -42,10 +42,10 @@ export default function ActivityBar() {
 
         <button
           onClick={() => handleSectionClick('code')}
-          className={`transition duration-200 p-2 rounded ${
+          className={`transition duration-200 ${
             activeSection === 'code'
-              ? 'text-white bg-[#3c3c3c]'
-              : 'hover:text-white hover:bg-[#3c3c3c]'
+              ? 'text-white '
+              : 'hover:text-white'
           }`}
           title="Components"
         >
@@ -54,10 +54,10 @@ export default function ActivityBar() {
 
         <button
           onClick={() => handleSectionClick('mail')}
-          className={`transition duration-200 p-2 rounded ${
+          className={`transition duration-200  ${
             activeSection === 'mail'
-              ? 'text-white bg-[#3c3c3c]'
-              : 'hover:text-white hover:bg-[#3c3c3c]'
+              ? 'text-white '
+              : 'hover:text-white'
           }`}
           title="Contact"
         >
@@ -66,10 +66,10 @@ export default function ActivityBar() {
 
         <button
           onClick={() => handleSectionClick('github')}
-          className={`transition duration-200 p-2 rounded ${
+          className={`transition duration-200  ${
             activeSection === 'github'
-              ? 'text-white bg-[#3c3c3c]'
-              : 'hover:text-white hover:bg-[#3c3c3c]'
+              ? 'text-white '
+              : 'hover:text-white'
           }`}
           title="GitHub"
         >

@@ -12,7 +12,7 @@ export default function UIWrapper() {
     <div className="w-screen h-screen overflow-hidden flex flex-col bg-black">
       <Titlebar />
 
-      <div className="flex flex-1 overflow-hidden bg-[#1e1e1e]">
+      <div className="flex flex-1 overflow-hidden bg-[#1e1e1e]" style={{padding:'10px'}}>
         <ActivityBar />
         <Sidebar />
         <Editor />

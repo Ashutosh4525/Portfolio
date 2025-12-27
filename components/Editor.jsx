@@ -24,16 +24,12 @@ export default function Editor() {
   return (
     <div className={`${terminalOpen ? 'h-[70%]' : 'h-full'} flex-1 bg-[#1e1e1e] text-gray-300 overflow-auto flex flex-col transition-all duration-300`}>
       <Tabs />
-      <div className="flex-1 p-4 overflow-auto">
+      <div className="flex-1 p-6 md:p-8 overflow-auto flex flex-col">
         {activeFile?.component ? (
           <div className="w-full h-full">
             {activeFile.component}
           </div>
-        ) : (
-          <pre className="whitespace-pre text-sm text-gray-400">
-            {activeFile?.content || 'Select a component to view'}
-          </pre>
-        )}
+        ) : null}
       </div>
     </div>
   );
