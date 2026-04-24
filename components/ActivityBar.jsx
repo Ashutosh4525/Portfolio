@@ -1,83 +1,58 @@
 'use client'
 
-import { useUIStore } from '@/store/uiStore';
 import { useEditorStore } from '@/store/EditorStore';
-import { VscFiles, VscAccount, VscCode, VscMail, VscGithubAlt } from 'react-icons/vsc';
-import { useState, useEffect } from 'react';
-import useMediaQuery from '@/app/MediaQuery';
+import { useUIStore } from '@/store/uiStore';
+import { tabIconMap } from '@/components/SectionIcons';
+
+const items = [
+  { id: 'about', title: 'README.md', icon: 'about' },
+  { id: 'skills', title: 'skills.json', icon: 'skills' },
+  { id: 'projects', title: 'projects.ts', icon: 'projects' },
+  { id: 'contact', title: 'contact.yaml', icon: 'contact' },
+];
 
 export default function ActivityBar() {
-  const { sidebarOpen, setSidebarOpen } = useUIStore();
-  const { activeTab } = useEditorStore();
-  const [activeSection, setActiveSection] = useState('files');
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const { activeTab, openTabById } = useEditorStore();
+  const { setSidebarOpen } = useUIStore();
 
-  useEffect(() => {
-    if (activeTab === 'skills' || activeTab === 'projects' || activeTab === 'contact') {
-      setActiveSection('code');
-    }
-  }, [activeTab]);
-
-  const handleSectionClick = (section) => {
-    setActiveSection(section);
+  const handleSectionClick = (tabId) => {
+    openTabById(tabId);
     setSidebarOpen(true);
   };
 
-  const iconSize = isMobile ? 18 : 20;
-
   return (
-    <aside className="h-screen w-12 md:w-14 bg-[#1e1e1e] border-r border-[#3c3c3c] text-gray-400 pt-2 flex flex-col items-center justify-between py-3 md:py-4 overflow-hidden shrink-0" style={{paddingTop:"5px"}}>
-      <div className="flex flex-col items-center gap-3 md:gap-6">
-        <button
-          onClick={() => handleSectionClick('files')}
-          className={`transition duration-200 w-full ${
-            activeSection === 'files'
-              ? 'text-white'
-              : 'hover:text-white'
-          }`}
-          title="Explorer"
-        >
-          <VscFiles size={iconSize} />
-        </button>
+    <aside
+      className="hidden w-12 shrink-0 border-r md:flex md:flex-col md:items-center md:justify-between"
+      style={{ backgroundColor: 'var(--activitybar-bg)', borderColor: 'var(--line)' }}
+    >
+      <div className="flex w-full flex-col items-center py-2">
+        {items.map((item) => {
+          const Icon = tabIconMap[item.icon];
+          const isActive = activeTab === item.id;
 
-        <button
-          onClick={() => handleSectionClick('code')}
-          className={`transition duration-200 ${
-            activeSection === 'code'
-              ? 'text-white '
-              : 'hover:text-white'
-          }`}
-          title="Components"
-        >
-          <VscCode size={iconSize} />
-        </button>
-
-        <button
-          onClick={() => handleSectionClick('mail')}
-          className={`transition duration-200  ${
-            activeSection === 'mail'
-              ? 'text-white '
-              : 'hover:text-white'
-          }`}
-          title="Contact"
-        >
-          <VscMail size={iconSize} />
-        </button>
-
-        <button
-          onClick={() => handleSectionClick('github')}
-          className={`transition duration-200  ${
-            activeSection === 'github'
-              ? 'text-white '
-              : 'hover:text-white'
-          }`}
-          title="GitHub"
-        >
-          <VscGithubAlt size={iconSize} />
-        </button>
+          return (
+            <button
+              key={item.id}
+              onClick={() => handleSectionClick(item.id)}
+              className="relative flex h-12 w-full items-center justify-center transition"
+              style={{ color: isActive ? 'var(--text-strong)' : 'var(--text-muted)' }}
+              title={item.title}
+            >
+              {isActive && (
+                <span
+                  className="absolute left-0 top-2 h-8 w-0.5 rounded-r"
+                  style={{ backgroundColor: 'var(--accent)' }}
+                />
+              )}
+              <Icon className="h-5 w-5" />
+            </button>
+          );
+        })}
       </div>
 
-      <div className="flex flex-col items-center gap-2"></div>
+      <div className="pb-3 text-[10px] uppercase tracking-[0.24em]" style={{ color: 'var(--text-muted)' }}>
+        DEV
+      </div>
     </aside>
   );
 }

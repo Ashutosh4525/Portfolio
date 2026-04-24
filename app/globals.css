@@ -1,9 +1,33 @@
 @import "tailwindcss";
+@source "./**/*.{js,jsx,ts,tsx,mdx}";
+@source "../components/**/*.{js,jsx,ts,tsx,mdx}";
+@source "../store/**/*.{js,jsx,ts,tsx,mdx}";
+@source "../hooks/**/*.{js,jsx,ts,tsx,mdx}";
 
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+} */
+
+@layer base {
+    *,
+    *::before,
+    *::after {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    /* For Firefox. */
+    * {
+        scrollbar-width: none;
+    }
+
+    /* For WebKit (Chrome & Safari). */
+    ::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 html, body, #__next {
@@ -13,12 +37,338 @@ html, body, #__next {
 }
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #111111;
+  --foreground: #cccccc;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Segoe UI Variable", "Segoe UI", "SF Pro Display", sans-serif;
+  background-image: linear-gradient(180deg, var(--app-bg, #111111) 0%, var(--app-backdrop, #0f0f0f) 100%);
+}
+
+button {
+  cursor: pointer;
+}
+
+.app-shell {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--app-bg, #111111) 92%, white 8%), var(--app-backdrop, #0f0f0f));
+}
+
+.workspace-frame {
+  position: relative;
+  background: var(--window-bg, #1e1e1e);
+  animation: shell-enter 520ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.workspace-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 18%);
+}
+
+.editor-surface {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0)),
+    linear-gradient(90deg, var(--editor-gutter, rgba(255, 255, 255, 0.03)) 1px, transparent 1px),
+    linear-gradient(var(--editor-gutter, rgba(255, 255, 255, 0.03)) 1px, transparent 1px),
+    var(--editor-bg, #1e1e1e);
+  background-size: auto, 28px 28px, 28px 28px, auto;
+}
+
+.editor-viewport {
+  animation: content-enter 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.portfolio-panel {
+  padding-bottom: 2rem;
+}
+
+.editor-document {
+  color: var(--text-main, #cccccc);
+}
+
+.editor-header-label {
+  color: var(--accent-strong, #4fc1ff);
+  font-size: 12px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+.editor-title {
+  color: var(--text-strong, #ffffff);
+  font-size: clamp(2rem, 5vw, 4.6rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+.editor-copy {
+  color: var(--text-main, #cccccc);
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+.editor-panel {
+  border: 1px solid var(--line-soft, rgba(255, 255, 255, 0.06));
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0)),
+    color-mix(in srgb, var(--editor-bg, #1e1e1e) 94%, black 6%);
+  border-radius: 20px;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    background-color 220ms ease;
+}
+
+.editor-panel-muted {
+  border: 1px solid var(--line-soft, rgba(255, 255, 255, 0.06));
+  background: color-mix(in srgb, var(--editor-bg, #1e1e1e) 90%, black 10%);
+  border-radius: 18px;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+}
+
+.editor-mini-label {
+  color: var(--text-muted, #8b949e);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.editor-chip {
+  border: 1px solid var(--line-soft, rgba(255, 255, 255, 0.06));
+  background: color-mix(in srgb, var(--editor-bg, #1e1e1e) 86%, black 14%);
+  color: var(--text-main, #cccccc);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.editor-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.editor-hero::before {
+  content: '';
+  position: absolute;
+  inset: -20% auto auto -12%;
+  width: 280px;
+  height: 280px;
+  border-radius: 999px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent, #4fc1ff) 28%, transparent) 0%, transparent 72%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.editor-hero::after {
+  content: '';
+  position: absolute;
+  inset: auto -8% -24% auto;
+  width: 240px;
+  height: 240px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 72%);
+  pointer-events: none;
+}
+
+.stat-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--accent-strong, #4fc1ff), transparent 90%);
+  opacity: 0.8;
+}
+
+.timeline-rail {
+  position: relative;
+}
+
+.timeline-rail::before {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 10px;
+  bottom: 10px;
+  width: 1px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent, #4fc1ff) 50%, transparent), transparent);
+}
+
+.timeline-node {
+  position: relative;
+  padding-left: 26px;
+}
+
+.timeline-node::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 11px;
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  background: var(--accent, #4fc1ff);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent, #4fc1ff) 16%, transparent);
+}
+
+.soft-link {
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.soft-link:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent, #4fc1ff) 32%, var(--line, #2d2d30));
+}
+
+.glass-strip {
+  border: 1px solid color-mix(in srgb, var(--accent, #4fc1ff) 12%, var(--line-soft, rgba(255, 255, 255, 0.06)));
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--editor-bg, #1e1e1e) 82%, var(--accent, #4fc1ff) 18%),
+    color-mix(in srgb, var(--editor-bg, #1e1e1e) 94%, black 6%)
+  );
+  backdrop-filter: blur(12px);
+}
+
+.zen-surface {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0)),
+    var(--editor-bg, #1e1e1e);
+}
+
+.theme-select {
+  background: var(--tabs-bg, #2d2d30);
+  border: 1px solid var(--line, #2d2d30);
+  color: var(--text-main, #cccccc);
+}
+
+.theme-select:focus {
+  outline: 1px solid var(--accent, #4fc1ff);
+  outline-offset: 1px;
+}
+
+.status-select {
+  border: 1px solid color-mix(in srgb, var(--status-fg, #ffffff) 16%, transparent);
+  background: color-mix(in srgb, var(--status-bg, #007acc) 82%, black 18%);
+  color: var(--status-fg, #ffffff);
+}
+
+.status-select:focus {
+  outline: 1px solid color-mix(in srgb, var(--status-fg, #ffffff) 60%, transparent);
+  outline-offset: 1px;
+}
+
+::selection {
+  background: var(--selection, rgba(38, 79, 120, 0.7));
+  color: var(--text-strong, #ffffff);
+}
+
+.motion-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: content-enter 520ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+.panel-hover:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent, #4fc1ff) 30%, var(--line-soft, rgba(255, 255, 255, 0.06)));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+}
+
+.muted-panel-hover:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent, #4fc1ff) 24%, var(--line-soft, rgba(255, 255, 255, 0.06)));
+}
+
+.chip-pop:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent, #4fc1ff) 24%, var(--line-soft, rgba(255, 255, 255, 0.06)));
+}
+
+.tab-glow::after {
+  content: '';
+  position: absolute;
+  inset: auto 10px 5px;
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent, #4fc1ff) 32%, transparent);
+  filter: blur(12px);
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.tab-glow[data-active='true']::after {
+  opacity: 1;
+}
+
+.floating-badge {
+  animation: float-bob 4.8s ease-in-out infinite;
+}
+
+@keyframes shell-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.992);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes content-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workspace-frame,
+  .editor-viewport,
+  .motion-reveal,
+  .floating-badge {
+    animation: none !important;
+  }
+
+  .editor-panel,
+  .editor-panel-muted,
+  .editor-chip,
+  .tab-glow::after {
+    transition: none !important;
+  }
 }

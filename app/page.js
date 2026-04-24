@@ -1,33 +1,19 @@
 'use client'
 
-import UIWrapper from './ui-wrapper';
-import { useComponentRouter } from '@/hooks/useComponentRouter';
-import { useEditorStore } from '@/store/EditorStore';
-import { useUIStore } from '@/store/uiStore';
-import { useComponentStore } from '@/store/ComponentStore';
 import { useEffect } from 'react';
+import UIWrapper from './ui-wrapper';
+import { useEditorStore } from '@/store/EditorStore';
+import { TAB_ORDER } from '@/store/tabRegistry';
 
 export default function Home() {
-  const { setActiveTab } = useEditorStore();
-  const { components } = useComponentStore();
+  const { openTabById } = useEditorStore();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const tab = params.get('tab');
-    if (tab) {
-      setActiveTab(tab);
-    } else {
-      setActiveTab('skills');
-    }
-  }, [setActiveTab]);
-
-  useEffect(() => {
-    if (components.length > 0) {
-      components.forEach((comp) => {
-        setActiveTab(comp.id);
-      });
-    }
-  }, [components, setActiveTab]);
+    const initialTab = TAB_ORDER.includes(tab) ? tab : 'about';
+    openTabById(initialTab);
+  }, [openTabById]);
 
   return <UIWrapper />;
 }
