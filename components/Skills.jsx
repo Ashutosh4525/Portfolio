@@ -1,6 +1,7 @@
 'use client'
 
 import MotionReveal from '@/components/MotionReveal';
+import QuickActions from '@/components/QuickActions';
 import { JavaScriptIcon } from '@/components/SectionIcons';
 import { useUIStore } from '@/store/uiStore';
 
@@ -67,6 +68,17 @@ function ClassicSkills() {
               be reviewed without guessing.
             </p>
           </div>
+        </MotionReveal>
+
+        <MotionReveal delay={120}>
+          <QuickActions
+            subtitle="Skills land better when the next step is obvious, so the project proof and resume stay one tap away."
+            actions={[
+              { label: 'View Projects', type: 'tab', value: 'projects', tone: 'primary' },
+              { label: 'Contact Me', type: 'tab', value: 'contact', tone: 'secondary' },
+              { label: 'Download Resume', type: 'link', value: '/Ashutosh_full_stack_dev.pdf', tone: 'primary', download: true },
+            ]}
+          />
         </MotionReveal>
 
         <section className="grid gap-4 lg:grid-cols-3">
@@ -150,6 +162,18 @@ function ReferenceSkills() {
               </p>
             </MotionReveal>
           </div>
+        </MotionReveal>
+
+        <MotionReveal delay={120}>
+          <QuickActions
+            compact
+            subtitle="For visitors scanning fast on mobile, this keeps portfolio proof and resume access right under the opening summary."
+            actions={[
+              { label: 'View Projects', type: 'tab', value: 'projects', tone: 'primary' },
+              { label: 'Contact Me', type: 'tab', value: 'contact', tone: 'secondary' },
+              { label: 'Download Resume', type: 'link', value: '/Ashutosh_full_stack_dev.pdf', tone: 'primary', download: true },
+            ]}
+          />
         </MotionReveal>
 
         <section className="grid gap-4 lg:grid-cols-3">

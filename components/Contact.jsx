@@ -1,6 +1,7 @@
 'use client'
 
 import MotionReveal from '@/components/MotionReveal';
+import QuickActions from '@/components/QuickActions';
 import { MongoIcon } from '@/components/SectionIcons';
 import { useUIStore } from '@/store/uiStore';
 
@@ -131,6 +132,17 @@ function ClassicContact() {
           </MotionReveal>
         </section>
 
+        <MotionReveal delay={180}>
+          <QuickActions
+            subtitle="Visitors usually decide in seconds, so the resume, project proof, and direct contact actions stay grouped together here."
+            actions={[
+              { label: 'View Projects', type: 'tab', value: 'projects', tone: 'primary' },
+              { label: 'Open Skills', type: 'tab', value: 'skills', tone: 'secondary' },
+              { label: 'Download Resume', type: 'link', value: '/Ashutosh_full_stack_dev.pdf', tone: 'primary', download: true },
+            ]}
+          />
+        </MotionReveal>
+
         <section className="grid gap-4 lg:grid-cols-3">
           {recruiterNotes.map((note, index) => (
             <MotionReveal key={note} delay={200 + index * 60} as="article" className="editor-panel panel-hover px-5 py-5">
@@ -184,6 +196,18 @@ function ReferenceContact() {
               ))}
             </div>
           </div>
+        </MotionReveal>
+
+        <MotionReveal delay={180}>
+          <QuickActions
+            compact
+            subtitle="This keeps the most important next steps visible right after the intro: projects, skills, and the resume."
+            actions={[
+              { label: 'View Projects', type: 'tab', value: 'projects', tone: 'primary' },
+              { label: 'Open Skills', type: 'tab', value: 'skills', tone: 'secondary' },
+              { label: 'Download Resume', type: 'link', value: '/Ashutosh_full_stack_dev.pdf', tone: 'primary', download: true },
+            ]}
+          />
         </MotionReveal>
 
         <section className="grid gap-4 md:grid-cols-2">

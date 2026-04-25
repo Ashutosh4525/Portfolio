@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react';
 import ActivityBar from '@/components/ActivityBar';
 import Sidebar from '@/components/Sidebar';
 import Editor from '@/components/Editor';
@@ -35,14 +36,18 @@ function ZenToolbar() {
 }
 
 export default function UIWrapper() {
-  const { layoutMode, themeId } = useUIStore();
+  const { layoutMode, themeId, setSidebarOpen } = useUIStore();
   const isMobile = useMediaQuery('(max-width: 768px)');
   const theme = themePresets[themeId] ?? themePresets.darkPlus;
   const showChrome = layoutMode !== 'zen';
   const isZen = layoutMode === 'zen';
 
+  useEffect(() => {
+    setSidebarOpen(!isMobile);
+  }, [isMobile, setSidebarOpen]);
+
   return (
-    <div className="app-shell flex h-screen w-screen flex-col overflow-hidden" style={theme.vars}>
+    <div className="app-shell mobile-shell flex h-screen w-screen flex-col overflow-hidden" style={theme.vars}>
       {!isZen && <Titlebar />}
 
       <div

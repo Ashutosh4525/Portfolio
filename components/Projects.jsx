@@ -1,6 +1,7 @@
 'use client'
 
 import MotionReveal from '@/components/MotionReveal';
+import QuickActions from '@/components/QuickActions';
 import { NodeIcon } from '@/components/SectionIcons';
 import { useUIStore } from '@/store/uiStore';
 
@@ -96,7 +97,7 @@ function ProjectCard({ project, delay, compact = false }) {
               href={project.live}
               target="_blank"
               rel="noreferrer"
-              className="soft-link rounded-md border px-4 py-2 text-[13px]"
+              className="attention-ring attention-pulse soft-link rounded-xl border px-4 py-2.5 text-[13px] font-medium"
               style={{ borderColor: 'var(--accent-soft)', color: 'var(--text-strong)', backgroundColor: 'var(--accent-soft)' }}
             >
               Open Live Project
@@ -107,7 +108,7 @@ function ProjectCard({ project, delay, compact = false }) {
               href={project.github}
               target="_blank"
               rel="noreferrer"
-              className="soft-link rounded-md border px-4 py-2 text-[13px]"
+              className="attention-ring soft-link rounded-xl border px-4 py-2.5 text-[13px] font-medium"
               style={{ borderColor: 'var(--line)', color: 'var(--text-main)', backgroundColor: 'transparent' }}
             >
               View GitHub
@@ -139,6 +140,17 @@ function ClassicProjects() {
               they read clearly in a recruiter review or interview setting.
             </p>
           </div>
+        </MotionReveal>
+
+        <MotionReveal delay={110}>
+          <QuickActions
+            subtitle="Project links are the main proof point here, so resume access and contact stay visible before anyone starts scrolling through the case studies."
+            actions={[
+              { label: 'Download Resume', type: 'link', value: '/Ashutosh_full_stack_dev.pdf', tone: 'primary', download: true },
+              { label: 'Contact Me', type: 'tab', value: 'contact', tone: 'secondary' },
+              { label: 'Open Skills', type: 'tab', value: 'skills', tone: 'secondary' },
+            ]}
+          />
         </MotionReveal>
 
         <section className="grid gap-4 lg:grid-cols-3">
@@ -187,6 +199,18 @@ function ReferenceProjects() {
               ))}
             </div>
           </div>
+        </MotionReveal>
+
+        <MotionReveal delay={110}>
+          <QuickActions
+            compact
+            subtitle="This keeps the resume and follow-up actions visible right next to the project showcase instead of leaving them buried at the end."
+            actions={[
+              { label: 'Download Resume', type: 'link', value: '/Ashutosh_full_stack_dev.pdf', tone: 'primary', download: true },
+              { label: 'Contact Me', type: 'tab', value: 'contact', tone: 'secondary' },
+              { label: 'Open Skills', type: 'tab', value: 'skills', tone: 'secondary' },
+            ]}
+          />
         </MotionReveal>
 
         <section className="grid gap-4">

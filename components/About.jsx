@@ -1,6 +1,7 @@
 'use client'
 
 import MotionReveal from '@/components/MotionReveal';
+import QuickActions from '@/components/QuickActions';
 import { ReactIcon } from '@/components/SectionIcons';
 import { useUIStore } from '@/store/uiStore';
 
@@ -93,6 +94,10 @@ function ClassicAbout() {
               ))}
             </div>
           </div>
+        </MotionReveal>
+
+        <MotionReveal delay={120}>
+          <QuickActions subtitle="Most visitors want to see proof quickly. These links keep projects, contact, and the resume impossible to miss." />
         </MotionReveal>
 
         <section className="grid gap-4 md:grid-cols-3">
@@ -218,6 +223,10 @@ function ReferenceAbout() {
               </p>
             </MotionReveal>
           </div>
+        </MotionReveal>
+
+        <MotionReveal delay={140}>
+          <QuickActions compact subtitle="Start with the work, then check the skills or resume. This strip keeps the main actions visible much earlier in the page." />
         </MotionReveal>
 
         <section className="grid gap-4 lg:grid-cols-3">

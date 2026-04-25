@@ -57,6 +57,10 @@ button {
     linear-gradient(180deg, color-mix(in srgb, var(--app-bg, #111111) 92%, white 8%), var(--app-backdrop, #0f0f0f));
 }
 
+.mobile-shell {
+  height: 100dvh;
+}
+
 .workspace-frame {
   position: relative;
   background: var(--window-bg, #1e1e1e);
@@ -325,6 +329,33 @@ button {
   animation: float-bob 4.8s ease-in-out infinite;
 }
 
+.attention-ring {
+  position: relative;
+  overflow: hidden;
+}
+
+.attention-ring::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent, #4fc1ff) 72%, white 28%), transparent 70%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.attention-pulse {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent, #4fc1ff) 20%, transparent),
+    0 12px 28px color-mix(in srgb, var(--accent, #4fc1ff) 14%, transparent);
+  animation: attention-pulse 2.8s ease-in-out infinite;
+}
+
 @keyframes shell-enter {
   0% {
     opacity: 0;
@@ -357,11 +388,26 @@ button {
   }
 }
 
+@keyframes attention-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--accent, #4fc1ff) 18%, transparent),
+      0 12px 28px color-mix(in srgb, var(--accent, #4fc1ff) 12%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--accent, #4fc1ff) 38%, transparent),
+      0 18px 34px color-mix(in srgb, var(--accent, #4fc1ff) 18%, transparent);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .workspace-frame,
   .editor-viewport,
   .motion-reveal,
-  .floating-badge {
+  .floating-badge,
+  .attention-pulse {
     animation: none !important;
   }
 
